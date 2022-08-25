@@ -40,7 +40,7 @@ class TextSerializationWriter(SerializationWriter):
                 )
             self._writer.append(value)
 
-    def write_bool_value(self, key: Optional[str], value: Optional[bool]) -> Optional[bool]:
+    def write_bool_value(self, key: Optional[str], value: Optional[bool]) -> None:
         """Writes the specified boolean value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -49,7 +49,7 @@ class TextSerializationWriter(SerializationWriter):
         if value or value is False:
             self.write_str_value(key, str(value).lower())
 
-    def write_int_value(self, key: Optional[str], value: Optional[int]) -> Optional[int]:
+    def write_int_value(self, key: Optional[str], value: Optional[int]) -> None:
         """Writes the specified integer value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -58,7 +58,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_float_value(self, key: Optional[str], value: Optional[float]) -> Optional[float]:
+    def write_float_value(self, key: Optional[str], value: Optional[float]) -> None:
         """Writes the specified float value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -67,7 +67,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_uuid_value(self, key: Optional[str], value: Optional[UUID]) -> Optional[str]:
+    def write_uuid_value(self, key: Optional[str], value: Optional[UUID]) -> None:
         """Writes the specified uuid value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -76,7 +76,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_datetime_value(self, key: Optional[str], value: Optional[datetime]) -> Optional[str]:
+    def write_datetime_value(self, key: Optional[str], value: Optional[datetime]) -> None:
         """Writes the specified datetime offset value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -85,8 +85,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value.isoformat()))
 
-    def write_timedelta_value(self, key: Optional[str],
-                              value: Optional[timedelta]) -> Optional[str]:
+    def write_timedelta_value(self, key: Optional[str], value: Optional[timedelta]) -> None:
         """Writes the specified timedelta value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -95,7 +94,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_date_value(self, key: Optional[str], value: Optional[date]) -> Optional[str]:
+    def write_date_value(self, key: Optional[str], value: Optional[date]) -> None:
         """Writes the specified date value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -104,7 +103,7 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_time_value(self, key: Optional[str], value: Optional[time]) -> Optional[str]:
+    def write_time_value(self, key: Optional[str], value: Optional[time]) -> None:
         """Writes the specified time value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -113,8 +112,9 @@ class TextSerializationWriter(SerializationWriter):
         if value:
             self.write_str_value(key, str(value))
 
-    def write_collection_of_primitive_values(self, key: Optional[str],
-                                             values: Optional[List[T]]) -> Optional[List[T]]:
+    def write_collection_of_primitive_values(
+        self, key: Optional[str], values: Optional[List[T]]
+    ) -> None:
         """Writes the specified collection of primitive values to the stream with an optional
         given key.
         Args:
@@ -125,7 +125,7 @@ class TextSerializationWriter(SerializationWriter):
 
     def write_collection_of_object_values(
         self, key: Optional[str], values: Optional[List[U]]
-    ) -> Optional[List[Optional[Dict]]]:
+    ) -> None:
         """Writes the specified collection of model objects to the stream with an optional
         given key.
         Args:
@@ -134,8 +134,9 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def write_collection_of_enum_values(self, key: Optional[str],
-                                        values: Optional[List[Enum]]) -> Optional[str]:
+    def write_collection_of_enum_values(
+        self, key: Optional[str], values: Optional[List[Enum]]
+    ) -> None:
         """Writes the specified collection of enum values to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -143,7 +144,7 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def write_bytes_value(self, key: Optional[str], value: bytes) -> Optional[str]:
+    def write_bytes_value(self, key: Optional[str], value: bytes) -> None:
         """Writes the specified byte array as a base64 string to the stream with an optional
         given key.
         Args:
@@ -155,11 +156,9 @@ class TextSerializationWriter(SerializationWriter):
         if value and not key:
             base64_bytes = base64.b64encode(value)
             base64_string = base64_bytes.decode('utf-8')
-            return base64_string
-        return None
+            self.write_str_value(key, base64_string)
 
-    def write_object_value(self, key: Optional[str],
-                           value: Optional[U]) -> Optional[Dict[Any, Any]]:
+    def write_object_value(self, key: Optional[str], value: Optional[U]) -> None:
         """Writes the specified model object to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -167,7 +166,7 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def write_enum_value(self, key: Optional[str], value: Optional[Enum]) -> Optional[str]:
+    def write_enum_value(self, key: Optional[str], value: Optional[Enum]) -> None:
         """Writes the specified enum value to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
