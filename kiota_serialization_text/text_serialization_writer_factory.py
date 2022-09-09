@@ -6,6 +6,7 @@ from .text_serialization_writer import TextSerializationWriter
 class TextSerializationWriterFactory(SerializationWriterFactory):
     """A factory that creates TextSerializationWriter instances.
     """
+
     def get_valid_content_type(self) -> str:
         """Gets the content type this factory creates serialization writers for.
         Returns:
