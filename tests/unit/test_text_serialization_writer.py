@@ -30,8 +30,7 @@ def user_2():
 def test_write_str_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_str_value("", "Adele Vance")
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == 'Adele Vance'
 
@@ -45,8 +44,7 @@ def test_write_str_value_with_key():
 def test_write_bool_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_bool_value(None, True)
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == 'true'
 
@@ -60,8 +58,7 @@ def test_write_bool_value_with_key():
 def test_write_int_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_int_value("", 28192199291929192)
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == '28192199291929192'
 
@@ -75,8 +72,7 @@ def test_write_int_value_with_key():
 def test_write_float_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_float_value("", 3.2)
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == '3.2'
 
@@ -90,8 +86,7 @@ def test_write_float_value_with_key():
 def test_write_uuid_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_uuid_value("", UUID("8f841f30-e6e3-439a-a812-ebd369559c36"))
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "8f841f30-e6e3-439a-a812-ebd369559c36"
 
@@ -107,8 +102,7 @@ def test_write_uuid_value_with_key():
 def test_write_datetime_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_datetime_value("", parser.parse('2022-01-27T12:59:45.596117'))
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "2022-01-27T12:59:45.596117"
 
@@ -127,8 +121,7 @@ def test_write_timedelta_value():
         "",
         parser.parse('2022-01-27T12:59:45.596117') - parser.parse('2022-01-27T10:59:45.596117')
     )
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "2:00:00"
 
@@ -145,8 +138,7 @@ def test_write_timedelta_value_with_key():
 def test_write_date_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_date_value("", parser.parse("2000-09-04").date())
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "2000-09-04"
 
@@ -163,8 +155,7 @@ def test_write_time_value():
         "",
         parser.parse('2022-01-27T12:59:45.596117').time()
     )
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "12:59:45.596117"
 
@@ -209,8 +200,7 @@ def test_write_object_value(user_1):
 def test_write_enum_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_enum_value("", OfficeLocation.Dunhill)
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == "Dunhill"
 
@@ -224,8 +214,7 @@ def test_write_enum_value_with_key():
 def test_write_null_value():
     text_serialization_writer = TextSerializationWriter()
     text_serialization_writer.write_null_value("")
-    stream = text_serialization_writer.get_serialized_content()
-    content = stream.read()
+    content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
     assert content_string == 'null'
 
