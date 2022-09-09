@@ -6,6 +6,7 @@ from .text_parse_node import TextParseNode
 class TextParseNodeFactory(ParseNodeFactory):
     """Factory that is used to create TextParseNodes.
     """
+
     def get_valid_content_type(self) -> str:
         """Returns the content type this factory's parse nodes can deserialize
         Returns:
