@@ -1,7 +1,6 @@
 import base64
 from datetime import date, datetime, time, timedelta
 from enum import Enum
-from io import BytesIO
 from typing import Any, Callable, Dict, List, Optional, TypeVar
 from uuid import UUID
 
@@ -189,14 +188,14 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def get_serialized_content(self) -> BytesIO:
+    def get_serialized_content(self) -> bytes:
         """Gets the value of the serialized content.
         Returns:
             BytesIO: The value of the serialized content.
         """
         text_string = ''.join(self._writer)
         self._writer = []
-        stream = BytesIO(text_string.encode('utf-8'))
+        stream = text_string.encode('utf-8')
         return stream
 
     def get_on_before_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
