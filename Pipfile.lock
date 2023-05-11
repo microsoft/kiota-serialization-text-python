@@ -215,11 +215,11 @@
         },
         "docutils": {
             "hashes": [
-                "sha256:33995a6753c30b7f577febfc2c50411fec6aac7f7ffeb7c4cfe5991072dcf9e6",
-                "sha256:5e1de4d849fee02c63b040a4a3fd567f4ab104defd8a5511fbbc24a8a017efbc"
+                "sha256:a428f10de4de4774389734c986a01b4af2d802d26717108b0f1b9356862937c5",
+                "sha256:f75a5a52fbcacd81b47e42888ad2b380748aaccfb3f13af0fe69deb759f01eb6"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==0.19"
+            "version": "==0.20"
         },
         "flit": {
             "hashes": [
@@ -441,11 +441,11 @@
         },
         "types-python-dateutil": {
             "hashes": [
-                "sha256:355b2cb82b31e556fd18e7b074de7c350c680ab80608f0cc55ba6770d986d67d",
-                "sha256:fe5b545e678ec13e3ddc83a0eee1545c1b5e2fba4cfc39b276ab6f4e7604a923"
+                "sha256:09a0275f95ee31ce68196710ed2c3d1b9dc42e0b61cc43acc369a42cb939134f",
+                "sha256:0b0e7c68e7043b0354b26a1e0225cb1baea7abb1b324d02b50e2d08f1221043f"
             ],
             "index": "pypi",
-            "version": "==2.8.19.12"
+            "version": "==2.8.19.13"
         },
         "typing-extensions": {
             "hashes": [
