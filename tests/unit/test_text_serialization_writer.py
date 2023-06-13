@@ -202,7 +202,7 @@ def test_write_enum_value():
     text_serialization_writer.write_enum_value("", OfficeLocation.Dunhill)
     content = text_serialization_writer.get_serialized_content()
     content_string = content.decode('utf-8')
-    assert content_string == "Dunhill"
+    assert content_string == "dunhill"
 
 
 def test_write_enum_value_with_key():
