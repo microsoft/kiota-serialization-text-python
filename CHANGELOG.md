@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added support for composed types serialization.
+
 ### Changed
 
-- Added support for composed types serialization.
+- Changed writer from array to string to prevent writing of multiple values.
+- Fixed bug with serializing enums.
