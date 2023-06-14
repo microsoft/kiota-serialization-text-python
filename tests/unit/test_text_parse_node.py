@@ -44,7 +44,7 @@ def test_get_int_value():
 def test_get_bool_value():
     parse_node = TextParseNode(False)
     result = parse_node.get_bool_value()
-    assert result == False
+    assert result is False
 
 
 def test_get_float_value():
