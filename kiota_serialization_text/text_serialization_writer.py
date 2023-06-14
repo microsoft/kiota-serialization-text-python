@@ -21,7 +21,7 @@ class TextSerializationWriter(SerializationWriter):
     _on_after_object_serialization: Optional[Callable[[Parsable], None]] = None
 
     def __init__(self):
-        self._writer: Optional[str] = None 
+        self._writer: Optional[str] = None
 
     def write_str_value(self, key: Optional[str], value: Optional[str]) -> None:
         """Writes the specified string value to the stream with an optional given key.
@@ -157,7 +157,9 @@ class TextSerializationWriter(SerializationWriter):
             base64_string = base64_bytes.decode('utf-8')
             self.write_str_value(key, base64_string)
 
-    def write_object_value(self, key: Optional[str], value: Optional[U], *additional_values_to_merge: U) -> None:
+    def write_object_value(
+        self, key: Optional[str], value: Optional[U], *additional_values_to_merge: U
+    ) -> None:
         """Writes the specified model object to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
@@ -190,7 +192,7 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def get_serialized_content(self) -> bytes:
+    def get_serialized_content(self) -> Optional[bytes]:
         """Gets the value of the serialized content.
         Returns:
             BytesIO: The value of the serialized content.
@@ -200,6 +202,7 @@ class TextSerializationWriter(SerializationWriter):
         if text_string:
             stream = text_string.encode('utf-8')
             return stream
+        return None
 
     def get_on_before_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
         """Gets the callback called before the object gets serialized.
