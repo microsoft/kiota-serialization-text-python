@@ -21,7 +21,7 @@ class TextSerializationWriter(SerializationWriter):
     _on_after_object_serialization: Optional[Callable[[Parsable], None]] = None
 
     def __init__(self):
-        self._writer: List = []
+        self._writer: Optional[str] = None
 
     def write_str_value(self, key: Optional[str], value: Optional[str]) -> None:
         """Writes the specified string value to the stream with an optional given key.
@@ -29,15 +29,15 @@ class TextSerializationWriter(SerializationWriter):
             key (Optional[str]): The key to be used for the written value. May be null.
             value (Optional[str]): The string value to be written.
         """
-        if key:
-            raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
-        if value:
+        if isinstance(value, str):
+            if key:
+                raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
             if self._writer:
                 raise Exception(
                     'A value was already written for this serialization writer,'
                     'text content only supports a single value'
                 )
-            self._writer.append(value)
+            self._writer = value
 
     def write_bool_value(self, key: Optional[str], value: Optional[bool]) -> None:
         """Writes the specified boolean value to the stream with an optional given key.
@@ -157,11 +157,15 @@ class TextSerializationWriter(SerializationWriter):
             base64_string = base64_bytes.decode('utf-8')
             self.write_str_value(key, base64_string)
 
-    def write_object_value(self, key: Optional[str], value: Optional[U]) -> None:
+    def write_object_value(
+        self, key: Optional[str], value: Optional[U], *additional_values_to_merge: U
+    ) -> None:
         """Writes the specified model object to the stream with an optional given key.
         Args:
             key (Optional[str]): The key to be used for the written value. May be null.
             value (Parsable): The model object to be written.
+            additional_values_to_merge (tuple[Parsable]): The additional values to merge to the
+            main value when serializing an intersection wrapper.
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
@@ -172,7 +176,7 @@ class TextSerializationWriter(SerializationWriter):
             value (Optional[Enum]): The enum value to be written.
         """
         if value:
-            self.write_str_value(key, str(value.name))
+            self.write_str_value(key, str(value.value))
 
     def write_null_value(self, key: Optional[str]) -> None:
         """Writes a null value for the specified key.
@@ -188,15 +192,17 @@ class TextSerializationWriter(SerializationWriter):
         """
         raise Exception(self.NO_STRUCTURED_DATA_MESSAGE)
 
-    def get_serialized_content(self) -> bytes:
+    def get_serialized_content(self) -> Optional[bytes]:
         """Gets the value of the serialized content.
         Returns:
             BytesIO: The value of the serialized content.
         """
-        text_string = ''.join(self._writer)
-        self._writer = []
-        stream = text_string.encode('utf-8')
-        return stream
+        text_string = self._writer
+        self._writer = None
+        if text_string:
+            stream = text_string.encode('utf-8')
+            return stream
+        return None
 
     def get_on_before_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
         """Gets the callback called before the object gets serialized.
