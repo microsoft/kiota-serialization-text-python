@@ -212,11 +212,9 @@ class TextSerializationWriter(SerializationWriter):
             gets serialized.
         """
         return self._on_before_object_serialization
-    
+
     @on_before_object_serialization.setter
-    def on_before_object_serialization(
-        self, value: Optional[Callable[[Parsable], None]]
-    ) -> None:
+    def on_before_object_serialization(self, value: Optional[Callable[[Parsable], None]]) -> None:
         """Sets the callback called before the objects gets serialized.
         Args:
             value (Optional[Callable[[Parsable], None]]): the callback called before the objects
@@ -232,11 +230,9 @@ class TextSerializationWriter(SerializationWriter):
             gets serialized.
         """
         return self._on_after_object_serialization
-    
+
     @on_after_object_serialization.setter
-    def on_after_object_serialization(
-        self, value: Optional[Callable[[Parsable], None]]
-    ) -> None:
+    def on_after_object_serialization(self, value: Optional[Callable[[Parsable], None]]) -> None:
         """Sets the callback called after the objects gets serialized.
         Args:
             value (Optional[Callable[[Parsable], None]]): the callback called after the objects
@@ -254,7 +250,7 @@ class TextSerializationWriter(SerializationWriter):
             right after the serialization process starts.
         """
         return self._on_start_object_serialization
-    
+
     @on_start_object_serialization.setter
     def on_start_object_serialization(
         self, value: Optional[Callable[[Parsable, SerializationWriter], None]]
@@ -265,10 +261,6 @@ class TextSerializationWriter(SerializationWriter):
             called right after the serialization process starts.
         """
         self._on_start_object_serialization = value
-
-    
-
-    
 
     def set_on_start_object_serialization(
         self, value: Optional[Callable[[Parsable, SerializationWriter], None]]
