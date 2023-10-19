@@ -204,7 +204,8 @@ class TextSerializationWriter(SerializationWriter):
             return stream
         return None
 
-    def get_on_before_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
+    @property
+    def on_before_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
         """Gets the callback called before the object gets serialized.
         Returns:
             Optional[Callable[[Parsable], None]]:the callback called before the object
@@ -212,7 +213,17 @@ class TextSerializationWriter(SerializationWriter):
         """
         return self._on_before_object_serialization
 
-    def get_on_after_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
+    @on_before_object_serialization.setter
+    def on_before_object_serialization(self, value: Optional[Callable[[Parsable], None]]) -> None:
+        """Sets the callback called before the objects gets serialized.
+        Args:
+            value (Optional[Callable[[Parsable], None]]): the callback called before the objects
+            gets serialized.
+        """
+        self._on_before_object_serialization = value
+
+    @property
+    def on_after_object_serialization(self) -> Optional[Callable[[Parsable], None]]:
         """Gets the callback called after the object gets serialized.
         Returns:
             Optional[Optional[Callable[[Parsable], None]]]: the callback called after the object
@@ -220,7 +231,17 @@ class TextSerializationWriter(SerializationWriter):
         """
         return self._on_after_object_serialization
 
-    def get_on_start_object_serialization(
+    @on_after_object_serialization.setter
+    def on_after_object_serialization(self, value: Optional[Callable[[Parsable], None]]) -> None:
+        """Sets the callback called after the objects gets serialized.
+        Args:
+            value (Optional[Callable[[Parsable], None]]): the callback called after the objects
+            gets serialized.
+        """
+        self._on_after_object_serialization = value
+
+    @property
+    def on_start_object_serialization(
         self
     ) -> Optional[Callable[[Parsable, SerializationWriter], None]]:
         """Gets the callback called right after the serialization process starts.
@@ -230,25 +251,16 @@ class TextSerializationWriter(SerializationWriter):
         """
         return self._on_start_object_serialization
 
-    def set_on_before_object_serialization(
-        self, value: Optional[Callable[[Parsable], None]]
+    @on_start_object_serialization.setter
+    def on_start_object_serialization(
+        self, value: Optional[Callable[[Parsable, SerializationWriter], None]]
     ) -> None:
-        """Sets the callback called before the objects gets serialized.
+        """Sets the callback called right after the serialization process starts.
         Args:
-            value (Optional[Callable[[Parsable], None]]): the callback called before the objects
-            gets serialized.
+            value (Optional[Callable[[Parsable, SerializationWriter], None]]): the callback
+            called right after the serialization process starts.
         """
-        self._on_before_object_serialization = value
-
-    def set_on_after_object_serialization(
-        self, value: Optional[Callable[[Parsable], None]]
-    ) -> None:
-        """Sets the callback called after the objects gets serialized.
-        Args:
-            value (Optional[Callable[[Parsable], None]]): the callback called after the objects
-            gets serialized.
-        """
-        self._on_after_object_serialization = value
+        self._on_start_object_serialization = value
 
     def set_on_start_object_serialization(
         self, value: Optional[Callable[[Parsable, SerializationWriter], None]]
